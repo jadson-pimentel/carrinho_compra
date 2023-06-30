@@ -1,0 +1,21 @@
+name: ssh deploy
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: easingthemes/ssh-deploy@v4.1.8
+      - name: autenticação de usuario
+        with:
+          # Private key part of an SSH key pair
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          # Remote host
+          REMOTE_HOST: ${{ secrets.HOST }}
+          # Remote user
+          REMOTE_USER: ${{ secrets.USER }}
+          # Remote port
+          REMOTE_PORT: ${{ secrets.PORT }}
+          TARGET: /var/www/html/
